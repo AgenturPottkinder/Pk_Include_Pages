@@ -1,0 +1,34 @@
+{
+  "repositories": [
+    {
+        "type": "composer",
+        "url": "https://composer.typo3.org/"
+      }
+  ],
+  "name": "pottkinder/pk-include-pages",
+  "type": "typo3-cms-extension",
+  "description": "",
+  "keywords": [
+    "TYPO3",
+    "extension"
+  ],
+  "homepage": "https://www.agentur-pottkinder.de",
+  "authors": [
+    {
+      "name": "Bastian Bringenberg",
+      "role": "Developer",
+      "homepage": "https://www.agentur-pottkinder.de"
+    }
+  ],
+  "license": [
+    "GPL-2.0+"
+  ],
+  "require": {
+    "typo3/cms-core": ">=8.7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pottkinder\\PkIncludePages\\": "Classes"
+    }
+  }
+}
