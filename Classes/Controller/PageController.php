@@ -1,5 +1,7 @@
 <?php
 namespace Pottkinder\PkIncludePages\Controller;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 /**
  * PageController
  */
@@ -19,14 +21,12 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 		$this->contentObj = $this->configurationManager->getContentObject();
 		$uid = $this->contentObj->data['uid'];
 
-		// \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(NULL, 'TEST');
-
 		$query = 'SELECT tx_pkincludepages_pages,tx_pkincludepages_column FROM tt_content WHERE uid=' . $uid . ';';
 
 		$res=$db->sql_query($query);
 		$tt_content = $db->sql_fetch_assoc($res);
 
-		$query = 'SELECT uid FROM tt_content WHERE deleted=0 AND hidden=0 AND pid IN (' . $tt_content['tx_pkincludepages_pages'] . ') AND colPos=' . $tt_content['tx_pkincludepages_column'] . ' AND CType!="fluidcontent_content";';
+		$query = 'SELECT uid FROM tt_content WHERE deleted=0 AND hidden=0 AND pid IN (' . $tt_content['tx_pkincludepages_pages'] . ') AND colPos=' . $tt_content['tx_pkincludepages_column'] . ' AND CType!="fluidcontent_content" AND sys_language_uid=' . (int) $GLOBALS['TSFE']->sys_language_uid . ';';
 
 		$res=$db->sql_query($query);
 		while($contentElement = $db->sql_fetch_assoc($res)) {
@@ -36,7 +36,8 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 			    'source'       => $contentElement['uid'],
 			    'dontCheckPid' => 1
 			);
-			$content .= $cObj->RECORDS($ttContentConfig);
+            DebuggerUtility::var_dump($contentElement, 'CE');
+            $content .= $cObj->cObjGetSingle('RECORDS', $ttContentConfig);
 		}
 
 
