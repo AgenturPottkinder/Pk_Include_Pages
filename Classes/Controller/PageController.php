@@ -1,6 +1,5 @@
 <?php
 namespace Pottkinder\PkIncludePages\Controller;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * PageController
@@ -36,8 +35,7 @@ class PageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 			    'source'       => $contentElement['uid'],
 			    'dontCheckPid' => 1
 			);
-            DebuggerUtility::var_dump($contentElement, 'CE');
-            $content .= $cObj->cObjGetSingle('RECORDS', $ttContentConfig);
+            $content = $cObj->cObjGetSingle('RECORDS', $ttContentConfig);
 		}
 
 
